@@ -14,4 +14,6 @@ extern void exit_call(dword exit_code);
 
 extern err_num AtoU(byte_ptr cstr, dword *num);
 
+extern err_num AtoI(byte_ptr cstr, int *num);
+
 #endif // ASMLIB_H_

@@ -1,10 +1,10 @@
-
 section .note.GNU-stack noalloc noexec nowrite progbits
 
 section .text   
 global putchar_asm
 global exit_call
 global AtoU
+global AtoI
 
 %macro is_num 2
 
@@ -67,7 +67,26 @@ AtoU:
     return:
         mov dword [rsi], eax
         mov rax, 0
-    
     ret
     
-    
+
+AtoI:
+    xor rdx, rdx
+    mov dl, byte [rdi]
+
+    cmp dl, '-'
+    jnz atou_tag
+
+    mov rdx, -1
+    inc rdi
+
+    atou_tag:
+    call AtoU
+
+    test rdx, rdx
+    jz end_f
+
+    neg dword [rsi]
+
+    end_f:
+    ret
